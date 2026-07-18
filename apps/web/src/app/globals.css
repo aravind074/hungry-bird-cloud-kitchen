@@ -1,0 +1,258 @@
+/* ============================================================
+   Hungry Bird – Global CSS Design System
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS Custom Properties ──────────────────────────────── */
+:root {
+  /* Brand Colors */
+  --color-primary:       221 97% 58%;      /* #F97316 vibe → fiery orange */
+  --color-primary-dark:  25 95% 53%;
+  --color-secondary:     142 76% 36%;      /* lush green */
+  --color-accent:        46 100% 50%;      /* golden yellow */
+
+  /* Background */
+  --color-bg:            0 0% 98%;
+  --color-bg-card:       0 0% 100%;
+  --color-bg-muted:      220 14% 96%;
+
+  /* Text */
+  --color-text:          224 71% 4%;
+  --color-text-muted:    220 9% 46%;
+  --color-text-subtle:   220 9% 63%;
+
+  /* Border */
+  --color-border:        220 13% 91%;
+  --color-border-strong: 220 13% 82%;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius:    10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* Shadow */
+  --shadow-sm:  0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow:     0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.08);
+  --shadow-lg:  0 10px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-xl:  0 25px 50px -12px rgb(0 0 0 / 0.25);
+
+  /* Animation */
+  --transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Dark Mode ──────────────────────────────────────────── */
+.dark {
+  --color-bg:            224 71% 4%;
+  --color-bg-card:       222 47% 11%;
+  --color-bg-muted:      223 47% 14%;
+
+  --color-text:          213 31% 91%;
+  --color-text-muted:    215 20% 65%;
+  --color-text-subtle:   215 16% 47%;
+
+  --color-border:        216 34% 17%;
+  --color-border-strong: 216 34% 22%;
+}
+
+/* ── Base Styles ─────────────────────────────────────────── */
+@layer base {
+  * {
+    border-color: rgb(226 232 240);
+    box-sizing: border-box;
+  }
+
+  .dark * {
+    border-color: rgb(51 65 85);
+  }
+
+  html {
+    font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-gray-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { @apply bg-slate-100 dark:bg-slate-800; }
+  ::-webkit-scrollbar-thumb { @apply bg-slate-300 dark:bg-slate-600 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-slate-400 dark:bg-slate-500; }
+
+  /* Focus styles */
+  :focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #f97316;
+  }
+}
+
+/* ── Component Classes ───────────────────────────────────── */
+@layer components {
+  /* Glassmorphism Card */
+  .glass-card {
+    @apply bg-white/70 dark:bg-white/5 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-2xl shadow-lg;
+  }
+
+  /* Gradient Button */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 
+           bg-gradient-to-r from-orange-500 to-orange-600 
+           hover:from-orange-600 hover:to-orange-700
+           text-white font-semibold rounded-xl
+           transition-all duration-200 
+           shadow-lg shadow-orange-500/25 hover:shadow-xl hover:shadow-orange-500/35
+           active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3
+           bg-white dark:bg-slate-800 
+           border border-slate-200 dark:border-slate-700
+           text-slate-700 dark:text-slate-200 font-semibold rounded-xl
+           hover:bg-slate-50 dark:hover:bg-slate-700
+           transition-all duration-200 shadow-sm active:scale-[0.98];
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2
+           text-slate-600 dark:text-slate-300 font-medium rounded-lg
+           hover:bg-slate-100 dark:hover:bg-slate-800
+           transition-colors duration-150 active:scale-[0.98];
+  }
+
+  /* Food Card */
+  .food-card {
+    @apply bg-white dark:bg-slate-800/50 rounded-2xl overflow-hidden
+           border border-slate-100 dark:border-slate-700/50
+           shadow-sm hover:shadow-xl dark:hover:shadow-slate-900/50
+           transition-all duration-300 hover:-translate-y-1
+           cursor-pointer;
+  }
+
+  /* Input Field */
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700
+           bg-white dark:bg-slate-800
+           text-slate-900 dark:text-white
+           placeholder:text-slate-400 dark:placeholder:text-slate-500
+           focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500
+           transition-all duration-200;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-veg {
+    @apply badge bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400;
+  }
+
+  .badge-nonveg {
+    @apply badge bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400;
+  }
+
+  .badge-popular {
+    @apply badge bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400;
+  }
+
+  /* Status Pills */
+  .status-pending    { @apply badge bg-yellow-100 text-yellow-700; }
+  .status-confirmed  { @apply badge bg-blue-100 text-blue-700; }
+  .status-preparing  { @apply badge bg-purple-100 text-purple-700; }
+  .status-delivered  { @apply badge bg-green-100 text-green-700; }
+  .status-cancelled  { @apply badge bg-red-100 text-red-700; }
+
+  /* Skeleton Loading */
+  .skeleton {
+    @apply animate-pulse bg-slate-200 dark:bg-slate-700 rounded-lg;
+  }
+
+  /* Section Container */
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Gradient Text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent;
+  }
+
+  /* Hero Background */
+  .hero-gradient {
+    background: radial-gradient(ellipse 80% 80% at 50% -20%, rgba(249, 115, 22, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse 80% 80% at 80% 50%, rgba(239, 68, 68, 0.08) 0%, transparent 50%);
+  }
+
+  /* Floating animation */
+  .float-animation {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Cart bounce */
+  .cart-bounce {
+    animation: cartBounce 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  }
+}
+
+/* ── Utilities ───────────────────────────────────────────── */
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+
+  /* Hide scrollbar */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+/* ── Keyframes ───────────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+
+@keyframes cartBounce {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.25); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Shimmer skeleton */
+.skeleton-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.dark .skeleton-shimmer {
+  background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+  background-size: 200% 100%;
+}
