@@ -111,7 +111,7 @@ const menuItemSchema = new Schema<IMenuItem>(
   },
   {
     timestamps: true,
-    toJSON: { virtuals: true, transform: (_doc, ret) => { delete ret.__v; return ret; } },
+    toJSON: { virtuals: true, transform: (_doc, ret) => { delete (ret as any).__v; return ret; } },
   }
 );
 

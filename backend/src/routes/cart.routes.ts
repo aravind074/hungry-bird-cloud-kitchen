@@ -44,9 +44,9 @@ router.put('/update', async (req: AuthRequest, res: Response) => {
   if (!cart) throw new AppError('Cart not found', StatusCodes.NOT_FOUND);
 
   if (quantity === 0) {
-    cart.items = cart.items.filter(i => i._id?.toString() !== itemId) as any;
+    cart.items = cart.items.filter(i => (i as any)._id?.toString() !== itemId) as any;
   } else {
-    const item = cart.items.find(i => i._id?.toString() === itemId);
+    const item = cart.items.find(i => (i as any)._id?.toString() === itemId);
     if (item) item.quantity = quantity;
   }
   await cart.save();

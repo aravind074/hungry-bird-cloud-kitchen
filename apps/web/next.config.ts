@@ -2,6 +2,7 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  allowedDevOrigins: ['expanded-excited-arrival-photographers.trycloudflare.com'],
   // No 'output: standalone' — running directly with npm, not Docker
   images: {
     remotePatterns: [

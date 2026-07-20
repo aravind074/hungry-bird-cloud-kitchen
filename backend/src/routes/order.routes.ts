@@ -27,7 +27,7 @@ router.post('/', async (req: AuthRequest, res: Response) => {
     const cart = await Cart.findOne({ userId: req.userId });
     if (!cart || cart.items.length === 0) throw new AppError('Cart is empty', StatusCodes.BAD_REQUEST);
     
-    orderItems = cart.items.map(i => ({ ...i.toObject(), subtotal: i.price * i.quantity }));
+    orderItems = cart.items.map(i => ({ ...(i as any).toObject(), subtotal: i.price * i.quantity }));
     subtotal = cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
     discount = cart.couponDiscount || 0;
     
@@ -92,7 +92,7 @@ router.put('/:id/status', async (req: AuthRequest, res: Response) => {
   await order.save();
 
   // Real-time notification to customer
-  io.to(`user:${order.userId}`).emit('order_status_update', { orderId: order._id, status, orderId: order.orderId });
+  io.to(`user:${order.userId}`).emit('order_status_update', { _id: order._id, status, orderId: order.orderId });
 
   res.json({ success: true, data: order });
 });
